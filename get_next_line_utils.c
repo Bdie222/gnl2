@@ -6,11 +6,12 @@
 /*   By: bdiez-de <bdiez-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:35:29 by gganteau          #+#    #+#             */
-/*   Updated: 2023/11/24 11:27:35 by bdiez-de         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:00:07 by bdiez-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 size_t	ft_strlen(const char *c)
 {
@@ -40,6 +41,32 @@ char	*ft_strchr(const char *s, int c)
 	if ((unsigned char)c == '\0')
 		return ((char *)s + i);
 	return (NULL);
+}
+
+char	*ft_rhcrts(const char *s, int c)
+{
+	int	i;
+	char	*str;
+
+	i = 0;
+	if(!s)
+		return(NULL);
+	while (s[i] && s[i - 1] != c)
+	{
+		i++;
+	}
+	str = malloc(sizeof(char) * (i + 1));
+	if(!str)
+		return(NULL);
+	i = 0;
+	while (s[i] && s[i - 1] != c)
+	{
+		//printf("s[i] = %c\n", s[i]);
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
 int	ft_strchr_gnl(const char *s, int c)
@@ -98,6 +125,35 @@ char	*ft_strdup(const char *s1)
 	char	*dup;
 
 	i = ft_strlen(s1);
+	//printf("s = %s | i = %zu\n", s1, i);
+	dup = malloc(sizeof(char) * (i + 1));
+	if (!dup)
+		return (NULL);
+	j = 0;
+	while (j < i)
+	{
+		dup[j] = s1[j];
+		j++;
+	}
+	dup[j] = '\0';
+	return (dup);
+}
+char	*ft_strdup2(const char *s1)
+{	
+	size_t	i;
+	size_t	j;
+	char	*dup;
+
+	i = 0;
+	//printf("s = %s", s1);
+	while (s1[i] && s1[i] != '\n')
+	{
+		i++;
+	}
+	if (s1[i] == '\n')
+		i++;
+	//printf("\ni = %zu", i);
+	//printf("\nalloc = %zu", alloc);
 	dup = malloc(sizeof(char) * (i + 1));
 	if (!dup)
 		return (NULL);
