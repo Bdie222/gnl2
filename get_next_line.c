@@ -6,7 +6,7 @@
 /*   By: bdiez-de <bdiez-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:35:29 by gganteau          #+#    #+#             */
-/*   Updated: 2023/11/30 12:24:49 by bdiez-de         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:43:54 by bdiez-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,104 @@
 #include <stdio.h>
 #include <unistd.h>
 
-char *get_next_line(int fd)
+char	*ft_strdup(const char *s1)
 {
-	static char *rest = NULL;
-	char buffer[BUFFER_SIZE + 1];
-	ssize_t bytesRead;
-	char *temp;
-	char *delimiter;
-	char *line;
+	size_t	i;
+	size_t	j;
+	char	*dup;
 
-	if (fd < 0)
-		return NULL;
-	bytesRead = read(fd, buffer, BUFFER_SIZE);
-	if(bytesRead <= 0 && rest == NULL)
-		return (0);
-	while (bytesRead > 0)
+	i = ft_strlen(s1);
+	dup = malloc(sizeof(char) * (i + 1));
+	if (!dup)
+		return (NULL);
+	j = 0;
+	while (j < i)
 	{
-		buffer[bytesRead] = '\0';
-		if (rest == NULL)
-			rest = ft_strdup("");
-		temp = rest;
-		rest = ft_strjoin(rest, buffer);
-		free(temp);
-		delimiter = ft_strchr(rest, '\n');
-		if (delimiter != NULL)
-		{
-			line = ft_strdup2(rest);
-			temp = rest;
-			if(ft_strlen(delimiter) > 1)
-				rest = ft_strdup(delimiter + 1);
-			else
-				rest = NULL;
-			free(temp);
-			return (line);
-		}
-		bytesRead = read(fd, buffer, BUFFER_SIZE);
+		dup[j] = s1[j];
+		j++;
 	}
-	if (rest != NULL && ft_strlen(rest) > 0)
+	dup[j] = '\0';
+	return (dup);
+}
+
+void	reader(char *rest, char *buffer, char **prest, char **pline)
+{
+	char	*temp;
+	char	*delimiter;
+	char	*r;
+	char	*l;
+
+	r = NULL;
+	l = NULL;
+	if (rest == NULL)
+		rest = ft_strdup("");
+	temp = rest;
+	r = ft_strjoin(rest, buffer);
+	free(temp);
+	delimiter = ft_strchr(r, '\n');
+	if (delimiter != NULL)
 	{
-		if (!ft_strchr(rest, '\n'))
-		{
-			temp = rest;
-			rest = "";
-			return (temp);
-		}
+		l = ft_strdup2(r);
+		temp = r;
+		if (ft_strlen(delimiter) > 1)
+			r = ft_strdup(delimiter + 1);
+		else
+			r = NULL;
+		free(temp);
+	}
+	*prest = r;
+	*pline = l;
+}
+
+void	restmaker(char *rest, char *line, char **prest, char **pline)
+{
+	char	*temp;
+	char	*delimiter;
+
+	if (!ft_strchr(rest, '\n'))
+	{
+		temp = rest;
+		rest = "";
+		line = temp;
+	}
+	else
+	{
 		delimiter = ft_strchr(rest, '\n');
 		line = ft_strdup2(rest);
 		temp = rest;
-		if(ft_strlen(delimiter) > 1)
+		if (ft_strlen(delimiter) > 1)
 			rest = ft_strdup(delimiter + 1);
 		else
 			rest = NULL;
 		free(temp);
+	}
+	*prest = rest;
+	*pline = line;
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*rest = NULL;
+	char		buffer[BUFFER_SIZE + 1];
+	ssize_t		bytesread;
+	char		*line;
+
+	if (fd < 0)
+		return (NULL);
+	bytesread = read(fd, buffer, BUFFER_SIZE);
+	if (bytesread <= 0 && rest == NULL)
+		return (0);
+	while (bytesread > 0)
+	{
+		buffer[bytesread] = '\0';
+		reader(rest, buffer, &rest, &line);
+		if (line)
+			return (line);
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+	}
+	if (rest != NULL && ft_strlen(rest) > 0)
+	{
+		restmaker(rest, line, &rest, &line);
 		return (line);
 	}
 	rest = "";
@@ -78,7 +124,6 @@ int	main()
 {
 	int		fd;
 	int		i = 1;
-	char 	*hola = NULL;
 
 	fd = open("rde.txt", O_RDONLY);
 	while(i <= 5)

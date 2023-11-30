@@ -6,7 +6,7 @@
 /*   By: bdiez-de <bdiez-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:35:29 by gganteau          #+#    #+#             */
-/*   Updated: 2023/11/30 12:22:43 by bdiez-de         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:44:12 by bdiez-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	if(!s)
-		return(NULL);
+	if (!s)
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (unsigned char)c)
@@ -43,42 +43,19 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s1)
-{	
-	size_t	i;
-	size_t	j;
-	char	*dup;
-
-	i = ft_strlen(s1);
-	//printf("s = %s | i = %zu\n", s1, i);
-	dup = malloc(sizeof(char) * (i + 1));
-	if (!dup)
-		return (NULL);
-	j = 0;
-	while (j < i)
-	{
-		dup[j] = s1[j];
-		j++;
-	}
-	dup[j] = '\0';
-	return (dup);
-}
 char	*ft_strdup2(const char *s1)
-{	
+{
 	size_t	i;
 	size_t	j;
 	char	*dup;
 
 	i = 0;
-	//printf("s = %s", s1);
 	while (s1[i] && s1[i] != '\n')
 	{
 		i++;
 	}
 	if (s1[i] == '\n')
 		i++;
-	//printf("\ni = %zu", i);
-	//printf("\nalloc = %zu", alloc);
 	dup = malloc(sizeof(char) * (i + 1));
 	if (!dup)
 		return (NULL);
@@ -91,6 +68,7 @@ char	*ft_strdup2(const char *s1)
 	dup[j] = '\0';
 	return (dup);
 }
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	j;
@@ -117,6 +95,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	new_str[j] = '\0';
 	return (new_str);
 }
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s3;
