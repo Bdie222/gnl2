@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "testeador",
+			"path": "../../../../../../printf/printf/testeador"
+		},
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../libft"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"fcntl.h": "c"
+		}
+	}
+}

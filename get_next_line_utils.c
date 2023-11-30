@@ -6,7 +6,7 @@
 /*   By: bdiez-de <bdiez-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:35:29 by gganteau          #+#    #+#             */
-/*   Updated: 2023/11/29 16:00:07 by bdiez-de         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:22:43 by bdiez-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,81 +41,6 @@ char	*ft_strchr(const char *s, int c)
 	if ((unsigned char)c == '\0')
 		return ((char *)s + i);
 	return (NULL);
-}
-
-char	*ft_rhcrts(const char *s, int c)
-{
-	int	i;
-	char	*str;
-
-	i = 0;
-	if(!s)
-		return(NULL);
-	while (s[i] && s[i - 1] != c)
-	{
-		i++;
-	}
-	str = malloc(sizeof(char) * (i + 1));
-	if(!str)
-		return(NULL);
-	i = 0;
-	while (s[i] && s[i - 1] != c)
-	{
-		//printf("s[i] = %c\n", s[i]);
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-int	ft_strchr_gnl(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if(!s)
-		return(0);
-	while (s[i] != '\0')
-	{
-		if (s[i] == (unsigned char)c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_strjoin2(char *s1, char *s2)
-{
-	char	*s3;
-	size_t	i;
-	size_t	j;
-
-	if (!s1 || !s2)
-		return (0);
-	s3 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!s3)
-		return (0);
-	i = 0;
-	j = 0;
-	while (s1[i] != '\0')
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0' && s2[j] != '\n')
-	{
-		s3[i] = s2[j];
-		i++;
-		j++;
-	}
-	s3[i] = '\0';
-	if (s2[j] == '\n')
-	{
-		s3[i] = '\n';
-		s3[i+1] = '\0';
-	}
-	return (s3);
 }
 
 char	*ft_strdup(const char *s1)
