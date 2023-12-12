@@ -6,7 +6,7 @@
 /*   By: bdiez-de <bdiez-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:35:29 by gganteau          #+#    #+#             */
-/*   Updated: 2023/11/30 14:43:54 by bdiez-de         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:12:54 by bdiez-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	reader(char *rest, char *buffer, char **prest, char **pline)
 	{
 		l = ft_strdup2(r);
 		temp = r;
-		if (ft_strlen(delimiter) > 1)
-			r = ft_strdup(delimiter + 1);
+		if (ft_strlen(delimiter) > 0)
+			r = ft_strdup(delimiter);
 		else
 			r = NULL;
 		free(temp);
@@ -79,8 +79,8 @@ void	restmaker(char *rest, char *line, char **prest, char **pline)
 		delimiter = ft_strchr(rest, '\n');
 		line = ft_strdup2(rest);
 		temp = rest;
-		if (ft_strlen(delimiter) > 1)
-			rest = ft_strdup(delimiter + 1);
+		if (ft_strlen(delimiter) > 0)
+			rest = ft_strdup(delimiter);
 		else
 			rest = NULL;
 		free(temp);
@@ -125,11 +125,12 @@ int	main()
 	int		fd;
 	int		i = 1;
 
-	fd = open("rde.txt", O_RDONLY);
-	while(i <= 5)
+	fd = open("readerror.txt", O_RDONLY);
+	while(i <= 10)
 	{
 		printf("%i- %s", i, get_next_line(fd));
 		i++;
 	}
 	return (0);
-}*/
+}
+*/

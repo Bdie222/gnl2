@@ -6,7 +6,7 @@
 /*   By: bdiez-de <bdiez-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:35:29 by gganteau          #+#    #+#             */
-/*   Updated: 2023/11/30 14:44:12 by bdiez-de         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:22:44 by bdiez-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i] != '\0')
 	{
 		if (s[i] == (unsigned char)c)
-		{
-			return ((char *)s + i);
-		}
+			return ((char *)s + (i + 1));
 		i++;
 	}
 	if ((unsigned char)c == '\0')
